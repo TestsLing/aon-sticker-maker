@@ -2,7 +2,7 @@
 	<div class="custom-navbar">
 		<img src="../assets/logo_.png" class="logo" @click="goIndex"></img>
 
-		<div class="title">AON Face To Manyg</div>
+		<div class="title">一键生成粘土风格</div>
     <!--
 		<div class="right">
 			<div class="right_count">

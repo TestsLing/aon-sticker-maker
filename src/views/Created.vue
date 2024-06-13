@@ -12,8 +12,8 @@
 				<img src="../assets/icons/download.png" @click="downloadImage" mode=""></img>
 			</div>
 			<div class="bottom_btn">
-				<button class="createMore" @click="goToCreate">Generate More</button>
-				<button class="shareBtn">Share</button>
+				<button class="createMore" @click="goToCreate">返 回</button>
+<!--				<button class="shareBtn">Share</button>-->
 			</div>
 		</div>
 	</div>

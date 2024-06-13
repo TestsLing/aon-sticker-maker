@@ -6,7 +6,7 @@
 		<div class="container">
 			<img class="banner" src="../assets/images/banner.png" mode=""></img>
 			<div class="uni-form-item uni-column">
-				<div class="title">Upload your photos</div>
+				<div class="title">上传图片</div>
 
 				<div class="content">
 					<div class="upload upload-done" v-if="imgUrl">
@@ -18,29 +18,22 @@
 
 						<div class="upload upload-before">
 							<img class="uploadIcon" src="../assets/icons/uploadImg.png" mode=""></img>
-							<text>limit 30MB per file</text>
+							<text>文件大小限制在30MB以内</text>
 						</div>
 					</van-uploader>
 
-
 				</div>
 
 			</div>
 
-			<div class="uni-form-item uni-column">
-				<div class="title">Customize your clothing logo</div>
-				<div class="content">
-					<input v-model="logoText" name="input" placeholder="a zombie in a fire, burning flames behind him" />
-				</div>
-			</div>
 
 			<div class="uni-form-item error-text" v-if="showError">
-				<div class="content">Please Upload your photos</div>
+				<div class="content">请上传图片！</div>
 			</div>
 			<div class="bottom_btn">
 
 				<button class="submitBtn" @click="formSubmit">
-					<text>Generate img</text>
+					<text>生成图片</text>
 				</button>
 			</div>
 
@@ -64,7 +57,7 @@ const router = useRouter()
 
 const showLoading = ref(false);
 const showError = ref(false);
-const logoText = ref('');
+const logoText = ref('Generate images in clay style');
 const imgUrl = ref('');
 const submitImgUrl = ref('');
 
@@ -179,11 +172,11 @@ const formSubmit = async () => {
 			goToComplete(url)
 		} else {
 			showLoading.value = false
-			showToast('AI processing failed')
+			showToast('AI 处理失败')
 		}
 	} catch (error) {
 		showLoading.value = false
-		showToast('AI processing failed')
+		showToast('AI 处理失败')
 	}
 
 }
