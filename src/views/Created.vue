@@ -2,7 +2,6 @@
 	<div class="">
 		<Header></Header>
 
-
 		<div class="container created">
 			<div class="resCon">
 				<img class="res_img" :src="imageUrl" mode=""></img>
@@ -11,9 +10,10 @@
 			<div class="download">
 				<img src="../assets/icons/download.png" @click="downloadImage" mode=""></img>
 			</div>
-			<div class="bottom_btn">
+
+      <div class="bottom_btn">
 				<button class="createMore" @click="goToCreate">返 回</button>
-<!--				<button class="shareBtn">Share</button>-->
+				<button class="shareBtn" @click="downloadImage">分 享</button>
 			</div>
 		</div>
 	</div>

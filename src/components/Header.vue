@@ -3,7 +3,7 @@
 		<img src="../assets/logo_.png" class="logo" @click="goIndex"></img>
 
 		<div class="title">一键生成猫猫贴纸</div>
-    <!--
+
 		<div class="right">
 			<div class="right_count">
 				<img src="../assets/icons/money.png" class="moneyIcon"></img>
@@ -11,7 +11,7 @@
 			</div>
 			<img src="../assets/icons/user.png" v-if="!isUserPage" class="userIcon" @click="goUser"></img>
 		</div>
-		-->
+
 	</div>
 </template>
 

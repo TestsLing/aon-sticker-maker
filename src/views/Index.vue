@@ -9,72 +9,96 @@
 
 			<div class="uni-form-item uni-column">
 				<div class="title">选择你想生成的猫贴纸</div>
-				<div class="radio-wrap">
-
-          <div>
-            <input type="radio" id="lh"   v-model="catType" name="cat" value="dragon-li" />
-            <label class="margin-left-5" for="lh">狸花猫</label>
-          </div>
-          <div>
-            <input type="radio" id="Ginger"  v-model="catType" name="cat" value="Ginger cat" />
-            <label class="margin-left-5" for="Ginger">橘猫</label>
-          </div>
-          <div>
-            <input type="radio" id="Cow"  v-model="catType" name="cat" value="Cow Cat" />
-            <label class="margin-left-5" for="Cow">奶牛猫</label>
-          </div>
-
-          <div>
-            <input type="radio" id="Three"  v-model="catType" name="cat" value="Three Flower Cat" />
-            <label class="margin-left-5" for="Three">三花猫</label>
-          </div>
+        <div class="radio-wrap">
+          <van-cell-group>
+            <van-radio-group v-model="catType" >
+            <van-cell title="狸花猫" clickable @click="catType = 'dragon-li'">
+              <template #right-icon>
+                <van-radio name="dragon-li" />
+              </template>
+            </van-cell>
 
 
-          <div>
-            <input type="radio" id="Ragdoll"  v-model="catType" name="cat" value="Ragdoll" />
-            <label class="margin-left-5" for="Ragdoll">布偶猫</label>
-          </div>
+              <van-cell title="橘猫" clickable @click="catType = 'ginger cat'">
+                <template #right-icon>
+                  <van-radio name="ginger cat" />
+                </template>
+              </van-cell>
 
-          <div>
-            <input type="radio" id="Persian"  v-model="catType" name="cat" value="Persian cat" />
-            <label class="margin-left-5" for="Persian">波斯猫</label>
-          </div>
+             <van-cell title="奶牛猫" clickable @click="catType = 'cow cat'">
+                <template #right-icon>
+                  <van-radio name="cow cat" />
+                </template>
+              </van-cell>
 
-          <div>
-            <input type="radio" id="short"  v-model="catType" name="cat" value="English short cat" />
-            <label class="margin-left-5" for="short">英短猫</label>
-          </div>
+              <van-cell title="三花猫" clickable @click="catType = 'three flower cat'">
+                <template #right-icon>
+                  <van-radio name="three flower cat" />
+                </template>
+              </van-cell>
 
-          <div>
-            <input type="radio" id="American"  v-model="catType" name="cat" value="American Short Cat" />
-            <label class="margin-left-5" for="American">美短猫</label>
-          </div>
+              <van-cell title="布偶猫" clickable @click="catType = 'ragdoll'">
+                <template #right-icon>
+                  <van-radio name="ragdoll" />
+                </template>
+              </van-cell>
 
-          <div>
-            <input type="radio" id="Maine"  v-model="catType" name="cat" value="Maine cat" />
-            <label class="margin-left-5" for="Maine">缅因猫</label>
-          </div>
+              <van-cell title="波斯猫" clickable @click="catType = 'persian'">
+                <template #right-icon>
+                  <van-radio name="persian" />
+                </template>
+              </van-cell>
 
-          <div>
-            <input type="radio" id="Siamese"  v-model="catType" name="cat" value="Siamese cat" />
-            <label class="margin-left-5" for="Siamese">暹罗猫</label>
-          </div>
-            <div>
-            <input type="radio" id="Hairless"  v-model="catType" name="cat" value="Hairless cat" />
-            <label class="margin-left-5" for="Hairless">无毛猫</label>
-          </div>
+              <van-cell title="英短猫" clickable @click="catType = 'english short cat'">
+                <template #right-icon>
+                  <van-radio name="english short cat" />
+                </template>
+              </van-cell>
 
-          <div>
-            <input type="radio" id="Garfield"  v-model="catType" name="cat" value="Garfield cat" />
-            <label class="margin-left-5" for="Garfield">加菲猫</label>
-          </div>
+              <van-cell title="美短猫" clickable @click="catType = 'american short cat'">
+                <template #right-icon>
+                  <van-radio name="american short cat" />
+                </template>
+              </van-cell>
 
-				</div>
+              <van-cell title="缅因猫" clickable @click="catType = 'maine cat'">
+                <template #right-icon>
+                  <van-radio name="maine cat" />
+                </template>
+              </van-cell>
+
+              <van-cell title="暹罗猫" clickable @click="catType = 'siamese cat'">
+                <template #right-icon>
+                  <van-radio name="siamese cat" />
+                </template>
+              </van-cell>
+
+              <van-cell title="无毛猫" clickable @click="catType = 'hairless cat'">
+                <template #right-icon>
+                  <van-radio name="hairless cat" />
+                </template>
+              </van-cell>
+
+              <van-cell title="加菲猫" clickable @click="catType = 'garfield cat'">
+                <template #right-icon>
+                  <van-radio name="garfield cat" />
+                </template>
+              </van-cell>
+
+
+            </van-radio-group>
+          </van-cell-group>
+        </div>
+
+
 
 			</div>
 
 			<div class="bottom_btn">
-
+        <div class="spendCount">
+          <img class="icon" src="../assets/icons/money.png" mode=""></img>
+          <text>-8</text>
+        </div>
 				<button class="submitBtn" @click="formSubmit">
 					<text>生成图片</text>
 				</button>
@@ -108,9 +132,8 @@ function goToComplete(url) {
 }
 
 const formSubmit = async () => {
-
-	showLoading.value = true
-
+  console.log(catType.value);return
+  showLoading.value = true
 	try {
 		// AI 使用方法
 		const ai_options = {
@@ -124,9 +147,9 @@ const formSubmit = async () => {
 		const data = {
 			input: {
         "steps": 17,
-        "width": 300,
-        "height": 300,
-        "prompt": "a cute cat,its breed is " + catType.value ,
+        "width": 1152,
+        "height": 1152,
+        "prompt": "a cute cat ,its breed is " + catType.value ,
         "output_format": "jpg",
         "output_quality": 100,
         "negative_prompt": "",
@@ -281,17 +304,13 @@ const formSubmit = async () => {
 	color: transparent;
 	background-clip: text;
 }
-.flex{
-  display: flex;
-}
+
 
 .radio-wrap{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 10px;
+  height: 400px;
+  overflow: scroll;
+
 }
 
-.margin-left-5{
-  margin-left: 5px;
-}
+
 </style>

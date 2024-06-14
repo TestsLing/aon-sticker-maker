@@ -23,7 +23,7 @@ import { RouterView } from 'vue-router'
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 }
 
 .bottom_btn uni-button {

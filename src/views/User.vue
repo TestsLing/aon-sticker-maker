@@ -26,7 +26,7 @@
 
 			<div class="bottom_btn">
 				<button @click="goToCreate">
-					Go To Create
+          去生成图片
 				</button>
 			</div>
 		</div>
