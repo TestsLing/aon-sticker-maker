@@ -85,7 +85,7 @@ const formSubmit = async () => {
         "width": 1152,
         "height": 1152,
         "prompt": prompt.value,
-        "output_format": "jpg",
+        "output_format": "png",
         "output_quality": 100,
         "negative_prompt": "",
         "number_of_images": 1
