@@ -4,95 +4,28 @@
 	<div>
 		<!-- 页面内容 -->
 		<div class="container">
-			<img class="banner" src="../assets/images/banner.png" mode=""></img>
+      <div class="banner">
+        <img src="../assets/images/banner.png" mode=""></img>
+        <p>AON 构建猫贴纸</p>
+        <p>瞬间激发了我亲手绘制专属猫贴纸的冲动，让每一个细节都充满爱意与创意。</p>
+      </div>
 
 
-			<div class="uni-form-item uni-column">
-				<div class="title">选择你想生成的猫贴纸</div>
-        <div class="radio-wrap">
-          <van-cell-group>
-            <van-radio-group v-model="catType" >
-            <van-cell title="狸花猫" clickable @click="catType = 'dragon-li'">
-              <template #right-icon>
-                <van-radio name="dragon-li" />
-              </template>
-            </van-cell>
-
-
-              <van-cell title="橘猫" clickable @click="catType = 'ginger cat'">
-                <template #right-icon>
-                  <van-radio name="ginger cat" />
-                </template>
-              </van-cell>
-
-             <van-cell title="奶牛猫" clickable @click="catType = 'cow cat'">
-                <template #right-icon>
-                  <van-radio name="cow cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="三花猫" clickable @click="catType = 'three flower cat'">
-                <template #right-icon>
-                  <van-radio name="three flower cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="布偶猫" clickable @click="catType = 'ragdoll'">
-                <template #right-icon>
-                  <van-radio name="ragdoll" />
-                </template>
-              </van-cell>
-
-              <van-cell title="波斯猫" clickable @click="catType = 'persian'">
-                <template #right-icon>
-                  <van-radio name="persian" />
-                </template>
-              </van-cell>
-
-              <van-cell title="英短猫" clickable @click="catType = 'english short cat'">
-                <template #right-icon>
-                  <van-radio name="english short cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="美短猫" clickable @click="catType = 'american short cat'">
-                <template #right-icon>
-                  <van-radio name="american short cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="缅因猫" clickable @click="catType = 'maine cat'">
-                <template #right-icon>
-                  <van-radio name="maine cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="暹罗猫" clickable @click="catType = 'siamese cat'">
-                <template #right-icon>
-                  <van-radio name="siamese cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="无毛猫" clickable @click="catType = 'hairless cat'">
-                <template #right-icon>
-                  <van-radio name="hairless cat" />
-                </template>
-              </van-cell>
-
-              <van-cell title="加菲猫" clickable @click="catType = 'garfield cat'">
-                <template #right-icon>
-                  <van-radio name="garfield cat" />
-                </template>
-              </van-cell>
-
-
-            </van-radio-group>
-          </van-cell-group>
+      <div class="uni-form-item uni-column">
+        <div class="title">选择你喜欢的猫猫类型</div>
+        <div class="templateCon" v-if="templateList.length > 0">
+          <div v-for="(item, index) in templateList"
+               :class="`template_item ${Number(item.id) === templateId ? 'templateActive' : ''}`"
+               @click="selectTemplate(Number(item.id), item.image, item.prompt)" :key="index">
+            <img :src="item.image" alt="" />
+            <div :class="`isActiveIcon ${Number(item.id) === templateId ? 'active' : ''}`">
+              <img src="../assets/icons/selectIcon.png" alt="" v-if="Number(item.id) === templateId">
+            </div>
+          </div>
         </div>
+      </div>
 
 
-
-			</div>
 
 			<div class="bottom_btn">
         <div class="spendCount">
@@ -110,10 +43,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { showToast } from 'vant';
 import { useRouter } from 'vue-router'
-
+import { getTemplate } from '../lib/getTemplate'
 import { AI } from 'aonweb'
 
 import 'vant/lib/index.css';
@@ -122,7 +55,10 @@ import Loading from '../components/Loading.vue';
 
 const router = useRouter()
 const showLoading = ref(false);
-const catType  = ref("dragon-li")
+const templateList = ref([]);
+const templateId = ref(1);
+const prompt = ref('');
+
 function goToComplete(url) {
 	const query = { url: url }
 	router.push({
@@ -132,7 +68,6 @@ function goToComplete(url) {
 }
 
 const formSubmit = async () => {
-  console.log(catType.value);return
   showLoading.value = true
 	try {
 		// AI 使用方法
@@ -149,7 +84,7 @@ const formSubmit = async () => {
         "steps": 17,
         "width": 1152,
         "height": 1152,
-        "prompt": "a cute cat ,its breed is " + catType.value ,
+        "prompt": prompt.value,
         "output_format": "jpg",
         "output_quality": 100,
         "negative_prompt": "",
@@ -182,135 +117,239 @@ const formSubmit = async () => {
 
 }
 
+
+async function getTemplateList() {
+  try {
+    const list = await getTemplate()
+    templateList.value = list
+    prompt.value = list[0].prompt
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function selectTemplate(id, imageUrl, prompt_) {
+  templateId.value = id
+  prompt.value = prompt_
+}
+
+onMounted(() => {
+  getTemplateList()
+})
 </script>
 
 <style scoped>
 .banner {
-	width: 100%;
-	height: 27.73vw;
-	margin-top: 8.53vw;
+  width: 100%;
+  height: 27.73vw;
+  margin-top: 8.53vw;
+  margin-bottom: 8.53vw;
+  position: relative;
+  padding: 4.27vw;
+}
 
-	margin-bottom: 8.53vw;
+.banner img {
+  width: 340px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /*width: 100%;*/
+  height: 100%;
+}
+
+.banner p {
+  position: relative;
+  z-index: 10;
+  font-family: Roboto-Black;
+  font-weight: 900;
+  font-size: 6.4vw;
+  color: #FFFFFF;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+}
+
+.banner p:last-child {
+  width: 49.07vw;
+  font-family: Roboto-Regular;
+  font-weight: 400;
+  font-size: 2.4vw;
+  color: #FFFFFF;
+  line-height: 4.27vw;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
 }
 
 .uni-form-item .title {
-	font-family: Roboto-Bold;
-	font-weight: bold;
-	font-size: 3.73vw;
-	color: #000000;
-	text-align: left;
-	font-style: normal;
-	text-transform: none;
-	margin-bottom: 2.13vw;
+  font-family: Roboto-Bold;
+  font-weight: bold;
+  font-size: 3.73vw;
+  color: #000000;
+  text-align: left;
+  font-style: normal;
+  text-transform: none;
+  margin-bottom: 2.13vw;
 }
 
 .uni-form-item {
-	margin-bottom: 8.53vw;
+  margin-bottom: 8.53vw;
 }
 
 .uni-form-item .content {
-	width: 100%;
-	height: 14.93vw;
-	background: #F1F1F1;
-	border-radius: 1.07vw;
-	display: flex;
-	align-items: center;
-	padding: 0 3.2vw;
-	box-sizing: border-box;
+  width: 100%;
+  height: 14.93vw;
+  background: #F1F1F1;
+  border-radius: 1.07vw;
+  display: flex;
+  align-items: center;
+  padding: 0 3.2vw;
+  box-sizing: border-box;
 
 }
+.error-text{
+  width: 86.67vw;
+  position: fixed;
+  bottom: 21.6vw;
 
+}
 .error-text .content {
-	background-color: #F3A32B;
-	font-size: 3.2vw;
-	color: #fff;
+  background-color: #F3A32B;
+  font-size: 3.2vw;
+  color: #fff;
 }
 
 .uni-form-item .content input {
-	width: 100%;
-	font-size: 3.2vw;
-	font-family: Roboto-Regular;
-	border: none;
-	outline: none;
-	background-color: #F1F1F1;
+  width: 100%;
+  font-size: 3.2vw;
+  font-family: Roboto-Regular;
+  border: none;
+  outline: none;
+  background-color: #F1F1F1;
 }
 
 .upload {
-	width: 100%;
-	display: flex;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .upload-before text {
-	color: #575757;
-	font-size: 3.2vw;
-	font-family: Roboto-Regular;
+  color: #575757;
+  font-size: 3.2vw;
+  font-family: Roboto-Regular;
 }
 
 .upload-done {
-	justify-content: space-between;
+  justify-content: space-between;
 }
 
 .uploadIcon {
-	width: 6.4vw;
-	height: 6.4vw;
-	margin-right: 2.13vw;
+  width: 6.4vw;
+  height: 6.4vw;
+  margin-right: 2.13vw;
 }
 
 .upload-res {
-	width: auto;
-	max-height: 8.53vw;
+  width: auto;
+  max-height: 8.53vw;
 }
 
 .deleteIcon {
-	height: 5.07vw;
-	width: 5.07vw;
+  height: 5.07vw;
+  width: 5.07vw;
 }
 
 
 .bottom_btn .spendCount {
-	width: 19.2vw;
-	height: 9.07vw;
-	background: #F1F1F1;
-	border-radius: 1.07vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 19.2vw;
+  height: 9.07vw;
+  background: #F1F1F1;
+  border-radius: 1.07vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bottom_btn .spendCount .icon {
-	height: 6.4vw;
-	width: 6.4vw;
-	margin-right: 1.07vw;
+  height: 6.4vw;
+  width: 6.4vw;
+  margin-right: 1.07vw;
 }
 
 .bottom_btn .submitBtn {
-	width: 64.8vw;
-	height: 9.07vw;
-	background: #000000;
-	box-shadow: 1.07vw 1.07vw 2.13vw .13vw rgba(0, 0, 0, 0.32);
-	border-radius: 1.07vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 64.8vw;
+  height: 9.07vw;
+  background: #000000;
+  box-shadow: 1.07vw 1.07vw 2.13vw .13vw rgba(0, 0, 0, 0.32);
+  border-radius: 1.07vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 }
 
 .bottom_btn .submitBtn text {
-	font-size: 3.73vw;
-	font-weight: bold;
-	background: linear-gradient(182deg, #2F54EB 0%, #FF26A8 100%);
-	-webkit-background-clip: text;
-	color: transparent;
-	background-clip: text;
+  font-size: 3.73vw;
+  font-weight: bold;
+  background: linear-gradient(182deg, #2F54EB 0%, #FF26A8 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  background-clip: text;
 }
 
+.templateCon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: auto;
+  background: transparent;
+}
 
-.radio-wrap{
-  height: 400px;
-  overflow: scroll;
+.template_item {
+  width: 24.8vw;
+  height: 44vw;
+  background: #F1F1F1;
+  border-radius: 1.07vw;
+  margin-bottom: 4.53vw;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 
 }
 
+.template_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+.templateActive {
+  border: .27vw solid #000;
+
+}
+
+.isActiveIcon {
+  position: absolute;
+  bottom: 1.6vw;
+  right: 1.6vw;
+  width: 3.2vw;
+  height: 3.2vw;
+  background: #FFFFFF;
+  border: .27vw solid #000000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.isActiveIcon img{
+  height: 2.13vw;
+  width: 2.13vw;
+}
+
+.active{
+  background: #EBCC2F;
+}
 </style>

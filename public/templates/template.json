@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "image": "template1.jpg",
+        "prompt": "A delightful Ragdolly cat, with its soft fur and enchanting eyes, radiates warmth and innocence."
+    },
+    {
+        "id": "2",
+        "image": "template2.jpg",
+        "prompt": "A charming Persian cat with its lush fur and captivating eyes."
+    },
+    {
+        "id": "3",
+        "image": "template3.jpg",
+        "prompt": "A charming milk-colored cat with irresistible cuteness."
+    },
+    {
+        "id": "4",
+        "image": "template4.jpg",
+        "prompt": "A charming Siamese cat, with its sleek coat and distinctive blue eyes, exudes an endearing charm."
+    }
+]
