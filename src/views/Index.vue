@@ -5,8 +5,8 @@
 		<!-- 页面内容 -->
 		<div class="container">
       <div class="banner">
-        <img src="../assets/images/banner.png" mode=""></img>
-        <p>{{ appData.title }}</p>
+				<img src="../assets/images/banner.png" mode=""></img>
+				<p>{{ appData.title }}</p>
 				<p>{{ appData.subtitle }}</p>
       </div>
 
@@ -141,45 +141,44 @@ onMounted(() => {
 
 <style scoped>
 .banner {
-  width: 100%;
-  height: 27.73vw;
-  margin-top: 8.53vw;
-  margin-bottom: 8.53vw;
-  position: relative;
-  padding: 4.27vw;
+	width: 100%;
+	height: 27.73vw;
+	margin-top: 8.53vw;
+	margin-bottom: 8.53vw;
+	position: relative;
+	padding: 4.27vw;
 }
 
 .banner img {
-  width: 340px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  /*width: 100%;*/
-  height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .banner p {
-  position: relative;
-  z-index: 10;
-  font-family: Roboto-Black;
-  font-weight: 900;
-  font-size: 6.4vw;
-  color: #FFFFFF;
-  text-align: left;
-  font-style: normal;
-  text-transform: none;
+	position: relative;
+	z-index: 10;
+	font-family: Roboto-Black;
+	font-weight: 900;
+	font-size: 6.4vw;
+	color: #FFFFFF;
+	text-align: left;
+	font-style: normal;
+	text-transform: none;
 }
 
 .banner p:last-child {
-  width: 49.07vw;
-  font-family: Roboto-Regular;
-  font-weight: 400;
-  font-size: 2.4vw;
-  color: #FFFFFF;
-  line-height: 4.27vw;
-  text-align: left;
-  font-style: normal;
-  text-transform: none;
+	width: 49.07vw;
+	font-family: Roboto-Regular;
+	font-weight: 400;
+	font-size: 2.4vw;
+	color: #FFFFFF;
+	line-height: 4.27vw;
+	text-align: left;
+	font-style: normal;
+	text-transform: none;
 }
 
 .uni-form-item .title {
