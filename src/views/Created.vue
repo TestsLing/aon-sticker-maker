@@ -2,18 +2,18 @@
 	<div class="">
 		<Header></Header>
 
+
 		<div class="container created">
 			<div class="resCon">
-				<img class="res_img" :src="imageUrl" mode=""></img>
+				<img class="res_img" :src="imageUrl" mode="widthFix"></img>
 			</div>
 
 			<div class="download">
 				<img src="../assets/icons/download.png" @click="downloadImage" mode=""></img>
 			</div>
-
-      <div class="bottom_btn">
-				<button class="createMore" @click="goToCreate">返 回</button>
-				<button class="shareBtn" @click="downloadImage">分 享</button>
+			<div class="bottom_btn">
+				<button class="createMore" @click="goToCreate">Generate More</button>
+				<button class="shareBtn">Share</button>
 			</div>
 		</div>
 	</div>
@@ -78,13 +78,13 @@ onMounted(() => {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 116.27vw;
+	height: 100vw;
 	width: 100%;
 }
 .res_img {
 	width: 100%;
 	height: auto;
-	max-height: 116.27vw;
+	max-height: 100vw;
 }
 
 .download {

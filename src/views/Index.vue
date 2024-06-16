@@ -6,8 +6,8 @@
 		<div class="container">
       <div class="banner">
         <img src="../assets/images/banner.png" mode=""></img>
-        <p>AON 构建猫贴纸</p>
-        <p>瞬间激发了我亲手绘制专属猫贴纸的冲动，让每一个细节都充满爱意与创意。</p>
+        <p>{{ appData.title }}</p>
+				<p>{{ appData.subtitle }}</p>
       </div>
 
 
@@ -58,6 +58,7 @@ const showLoading = ref(false);
 const templateList = ref([]);
 const templateId = ref(1);
 const prompt = ref('');
+const appData = process.env?.appData || {}
 
 function goToComplete(url) {
 	const query = { url: url }

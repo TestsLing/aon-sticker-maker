@@ -27,6 +27,7 @@ import { useRouter,useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 const isUserPage = ref(false);
+const appData = process.env?.appData || {}
 
 
 const props = defineProps({
